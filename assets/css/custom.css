@@ -1,0 +1,22 @@
+body{
+  background-image: url('../img/utawala.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto;
+  font-family: 'Numans', sans-serif;
+  
+}
+
+.card{
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto; 
+  background-color: rgba(0,0,0,0.7) !important;
+  border-radius: 7px;
+  color: #fff;
+}
+
+.card-body{
+  margin-top: 0;
+}
+

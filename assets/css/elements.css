@@ -1,0 +1,15 @@
+
+/* Jquery Accordion + Jquery Toggle */
+
+.accordion-wrapper, .toggle-wrapper{display:block; width:100%; margin-top:15px;}
+.accordion-wrapper:first-child, .toggle-wrapper:first-child{margin-top:0;}
+.accordion-wrapper .accordion-title, .accordion-wrapper .accordion-title.active, .toggle-wrapper .toggle-title, .toggle-wrapper .toggle-title.active{display:block; padding:0 0 0 34px; background:no-repeat 9px center; border:1px solid #E5E4E3;}
+.accordion-wrapper .accordion-title span, .accordion-wrapper .accordion-title.active span, .toggle-wrapper .toggle-title span, .toggle-wrapper .toggle-title.active span{display:block; padding:8px 15px; border-left:1px solid #E5E4E3;}
+.accordion-wrapper .accordion-title, .toggle-wrapper .toggle-title{background-image:url("../img/plus-16x16.png");}
+.accordion-wrapper .accordion-title.active, .toggle-wrapper .toggle-title.active{color:#000; background-image:url("../img/minus-16x16.png");}
+.accordion-wrapper .accordion-content, .toggle-wrapper .toggle-content{display:none; padding:15px 32px; border:solid #E5E4E3; border-width:0 1px 1px 1px;}
+.accordion-wrapper .accordion-title {
+	text-decoration: none !important;
+	color:grey;
+	font-weight: bolder;
+}

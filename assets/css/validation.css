@@ -1,0 +1,19 @@
+/*error management*/
+/*error management*/
+.errFB{
+  visibility: hidden;
+}
+
+.errorClass{
+  border-color: #f00;
+  background-color: rgba(100, 0, 0, .075);
+}
+
+#errorDiv {
+ color: red;
+}
+
+.errorSpan{
+  color: #e00;
+}
+/*end of error management*/

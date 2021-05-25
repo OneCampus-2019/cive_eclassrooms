@@ -1,0 +1,89 @@
+body{
+  margin-top: 50px;
+  background-color: #f1f1f1;
+} 
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+  background-color: #17A2B8;
+}
+.noti{
+  top: 60px;
+  right: 0px;
+  left: unset;
+  width: 450px;
+  box-shadow: 0px 5px 7px -1px #c1c1c1;
+  padding-bottom: 0px;
+  padding: 0px;
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: none;
+}
+.noti:before{
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: 12px;
+  border:10px solid #343A40;
+  border-color: transparent transparent #343A40 transparent;
+}
+.bd{
+  /*max-width:450px;*/
+  width: min-content;
+  /*background-color: #ddd;*/
+  display: block;
+}
+.jh:hover{
+  background-color: #ccc;
+}
+/*.cont {
+  min-height: 280px;
+  max-height: 280px;
+  overflow-y: scroll;
+}
+*/
+.noti::-webkit-scrollbar-track
+{
+background-color: #F5F5F5;
+}
+
+.noti::-webkit-scrollbar
+{
+width: 8px;
+background-color: #F5F5F5;
+}
+
+.noti::-webkit-scrollbar-thumb
+{
+background-color: #ccc;
+}
+
+.head{
+  padding:5px 15px;
+  border-radius: 3px 3px 0px 0px;
+}
+.footer{
+  padding:5px 15px;
+  border-radius: 0px 0px 3px 3px; 
+}
+.notification-box{
+  padding: 10px 0px; 
+}
+.bg-gray{
+  background-color: #eee;
+}
+@media (max-width: 640px) {
+    .dropdown-menu{
+      top: 50px;
+      left: -16px;  
+      width: 290px;
+    } 
+    .nav{
+      display: block;
+    }
+    .nav .nav-item,.nav .nav-item a{
+      padding-left: 0px;
+    }
+    .message{
+      font-size: 13px;
+    }
+}
