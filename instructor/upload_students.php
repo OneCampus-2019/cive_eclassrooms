@@ -2,7 +2,7 @@
 <?php 
 use App\DB;
 $conn = DB::getConnection();
-if(hasAuthority('8')){ 
+if(hasAuthority('8') || hasAuthority('7')){ 
     $stmt = $conn->prepare("SELECT department FROM `tbl_users` WHERE name=:name");
     $stmt->execute([':name'=>$n]);
     $data = $stmt->fetch(PDO::FETCH_OBJ);

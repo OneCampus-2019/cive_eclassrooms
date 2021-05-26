@@ -9,7 +9,7 @@
 	class DB{
 		
 		public static function getConnection(){
-		$conn = new PDO('mysql:host=192.168.3.23; dbname=ecive_db;', 'eciveuser', 'eciveuser@info123');
+		$conn = new PDO('mysql:host=localhost; dbname=ecive_db;', 'root', '');
 		try{
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}catch(PDOException $e){

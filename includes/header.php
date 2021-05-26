@@ -243,12 +243,25 @@
                                 Dashboard
                             </a>
                                 <!-- my course -->
-                            <a class="nav-link collapsed" href="my_course">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                My Course
+                            <a class="nav-link " href="my_course">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                                My Courses
+                              
+                            </a>
+                            <a class="nav-link" href="takecourse">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                                Take a Course
+                            </a>
+                            <a class="nav-link collapsed" href="prog_config">
+                                <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
+                                Configure Programs
                                 <div class="sb-sidenav-collapse-arrow"></div
-                            ></a>
-                            
+                            ></a> 
+                            <a class="nav-link collapsed" href="upload_students">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user-plus"></i></div>
+                                Upload Student list
+                                <div class="sb-sidenav-collapse-arrow"></div
+                            ></a> 
                             <!-- end of my course -->
                             <?php }elseif($l === '8'){ ?>  
                             <a class="nav-link" href="index">

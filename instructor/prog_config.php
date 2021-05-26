@@ -1,7 +1,7 @@
 <?php require_once '../includes/header.php'; ?>
 <?php 
 use App\DB;
-if(hasAuthority('8')){
+if(hasAuthority('8') || hasAuthority('7')){
 $conn = DB::getConnection();
     $cc = $conn->prepare("SELECT * FROM `tbl_users` WHERE name=:name ");
     $cc->execute([':name'=>$n]);

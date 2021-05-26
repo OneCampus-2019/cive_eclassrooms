@@ -14,18 +14,14 @@
         //this query must added the where clause for only my course
         $mimi = $n;
         $conn = DB::getConnection();
-        $stm = $conn->prepare("SELECT * FROM `tbl_course` ");
-        $stm->execute();
-        $courses = $stm->fetchAll(PDO::FETCH_OBJ);
-    
-        $nr = $stm->rowCount();
+        $q = $conn->prepare("SELECT * FROM `tbl_course` WHERE assigned_to LIKE :assigned_to");
+        $q->execute([':assigned_to'=>'%'.$mimi.'%']);
+        $courses = $q->fetchAll(PDO::FETCH_ASSOC);
+        $nr = $q->rowCount();
         $k = 0;
         foreach ($courses as $course) {
-            $mi = explode(", ",$course->assigned_to);
-            //$exploded_array = explode('~', $str);
-            foreach ($mi as $hapa)
-            {
-               if($mimi === $hapa){
+     
+                
                 $k++;
 
      ?> 
@@ -35,24 +31,23 @@
             <div class="col-xl-3 col-md-4" >
                 <div class="card bg-success text-white mb-4" style="height: 180px">
                     <div class="card-body">
-                        <a href="manage_my_course?id=<?php echo Crypt::encrypt($course->id); ?>&&code=<?php echo Crypt::encrypt($course->course_code); ?>" style="text-decoration: none;color:#fff;font-weight: bold;">
-                            <?php echo $course->course_name." <br>(".$course->course_code.")"; ?>
+                        <a href="manage_my_course?id=<?php echo Crypt::encrypt($course['id']); ?>&&code=<?php echo Crypt::encrypt($course['course_code']); ?>" style="text-decoration: none;color:#fff;font-weight: bold;">
+                            <?php echo $course['course_name']." <br>(".$course['course_code'].")"; ?>
                         </a>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <i class="fa fa-book fa-3x"></i>
                         <h3>
-                            <?php echo $course->course_credits; ?>
+                            <?php echo $course['course_credits']; ?>
                         </h3>
-                        <br><p><?php echo $course->status; ?></p>
+                        <br><p><?php echo $course['status']; ?></p>
                     </div>
                 </div>
             </div>
                 
          <?php 
             }
-        }
-        }
+       
          ?>                     
                             
                         </div>

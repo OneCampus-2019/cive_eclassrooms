@@ -1,14 +1,14 @@
 <?php require_once '../includes/header.php'; ?>
 <?php  
 use App\DB;
-if(hasAuthority('8')){
+if(hasAuthority('8') || hasAuthority('7') ){
    $conn = DB::getConnection(); 
     if(isset($_GET['id'])){
         $ii = Crypt::Decrypt($_GET['id']);
         $res = $conn->prepare("SELECT * FROM `tbl_course` WHERE id=:id ");
         $res->execute([':id'=>$ii]);
         $data = $res->fetch(PDO::FETCH_ASSOC);
-    }
+  
 ?>
 <style>
         .mul-select{
@@ -103,6 +103,7 @@ if(hasAuthority('8')){
             </div>
         </form>
     </div>
+    <?php  } ?>
 <?php 
         if (isset($_POST['UpdateCourse2'])) {
             $cname = $_POST['courseName'];
@@ -137,6 +138,20 @@ if(hasAuthority('8')){
             //echo "zimeenda";
         }else { 
             
+        }
+
+        if(isset($_GET['name']))
+        {
+            $name=$_GET['name'];
+          $idme=Crypt::Decrypt($_GET['did']);
+
+          $q = $conn->prepare("UPDATE `tbl_course` SET assigned_to=:assigned_to WHERE id=:id ");
+            $q->execute([':assigned_to'=>$name, ':id'=>$idme]);
+
+            print '<script>window.location.href="takecourse.php";</script>';
+
+
+
         }
 
       ?>

@@ -1,4 +1,4 @@
-<?php 
++++++++<?php 
 	session_start();
 	include('includes/db/db.php');
 	use App\DB;
@@ -40,12 +40,14 @@
 							$db_email = $user->email;
 							$db_level = $user->level;
 							$db_name = $user->name;
+							$db_dpt = $user->department;
 
 							//creating session from the aquired details from the datase
 							$_SESSION['user'] = $db_username;
 							$_SESSION['level'] = $db_level;
 							$_SESSION['email'] = $db_email;
 							$_SESSION['name'] = $db_name;
+							$_SESSION['department'] = $db_dpt;
 							$stm = $conn->prepare("INSERT INTO tbl_logs SET username=:username, action=:action, Description=:Description");
 							$stm->execute([':username'=>$db_name, ':action'=>'loggedin', ':Description'=>'Logged In into the System']);
 							//if its 

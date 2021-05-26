@@ -36,6 +36,9 @@ use App\DB;
 				<th>
 					Program name
 				</th>
+				<th>
+				Action
+				</th>
 				
 			</tr>
 		</thead>
@@ -66,7 +69,14 @@ use App\DB;
 				<?php  echo $d['programme_name'];?>
 			</td>
 			
-			
+			<td>
+			<?php
+			$idds=Crypt::encrypt($d['id']);
+			print '<a href="std_edit?id='.$idds.'" class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"></i></a>';
+			?>
+			</td>
+
+
 			
 			<?php 
 				
