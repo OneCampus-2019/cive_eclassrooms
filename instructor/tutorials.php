@@ -83,8 +83,8 @@ $('#lab_updater').css('display','block');
             $_SESSION['code']=Crypt::decrypt($_GET['code']);
             $code=Crypt::decrypt($_GET['code']);}
         else{$code=$_SESSION['code'];}
-        $stmt = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course && owner=:owner && as_in=:as_in ORDER BY id DESC");
-        $stmt->execute([':for_course'=>$code, ':owner'=>$mimi, ':as_in'=>'tutorial']);
+        $stmt = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course && as_in=:as_in ORDER BY id DESC");
+        $stmt->execute([':for_course'=>$code,':as_in'=>'tutorial']);
         //$nr = mysqli_num_rows($qq);
         $k =$stmt->rowCount();
         if($k<=0){
@@ -98,12 +98,8 @@ $('#lab_updater').css('display','block');
                         </div>';
         }
         else{
-        $asstit="Lab".$k;
         while ($d = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $mi =$d['owner'];
-            $asstit="Lab ".$k;
-            //$exploded_array = explode('~', $str);
-               if($mimi ==$mi ){
+         
                 
      ?> 
 
@@ -119,6 +115,7 @@ $('#lab_updater').css('display','block');
                     <div class="card-body">
                         <a href="../upload/data/<?php echo $d['file_name']; ?>" target="_blank" style="text-decoration: none;color:#fff;font-weight: bold;">
                             <h6><?php echo $d['title'];?></h6>
+                            uploaded by: <?php echo $d['owner'];?>
                         </a>
                     </div>
                     </a>
@@ -138,11 +135,6 @@ $('#lab_updater').css('display','block');
                     </div>
                 </div>
             </div>
-                
-         <?php 
-         $k--;
-        }
-        ?>
         </a> 
         <?php
         }

@@ -82,8 +82,8 @@ $('#lab_updater').css('display','block');
             $_SESSION['code']=Crypt::decrypt($_GET['code']);
             $code=Crypt::decrypt($_GET['code']);}
         else{$code=$_SESSION['code'];}
-        $stmt = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course && owner=:owner && as_in=:as_in ORDER BY id DESC");
-        $stmt->execute([':for_course'=>$code, ':owner'=>$mimi, ':as_in'=>'lab']);
+        $stmt = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course  && as_in=:as_in ORDER BY id DESC");
+        $stmt->execute([':for_course'=>$code,':as_in'=>'lab']);
         //$nr = mysqli_num_rows($qq);
         $k =$stmt->rowCount();
         if($k<=0){
@@ -97,12 +97,10 @@ $('#lab_updater').css('display','block');
                         </div>';
         }
         else{
-        $asstit="Lab".$k;
+            $asstit="";
         while ($d = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $mi =$d['owner'];
-            $asstit="Lab ".$k;
-            //$exploded_array = explode('~', $str);
-               if($mimi ==$mi ){
+
+            if($d['title']==null){$asstit="";}else{$asstit=$d['title'];}
                 
      ?> 
 
@@ -118,8 +116,8 @@ $('#lab_updater').css('display','block');
                     <div class="card-body">
                         <a href="stdwork.php?ass=<?php echo Crypt::encrypt($d['file_name']);?>&&id=<?php echo $_GET['id'];?>&&asstit=<?php echo $asstit;?>&&code=<?php echo $code;?>" style="text-decoration: none;color:#fff;font-weight: bold;">
                             <h6><?php echo $d['title'];?></h6>
-                       
-                            <?php echo "Deadline: ".$d['expire_date'].""; ?>
+                            <h6><?php echo "Deadline: ".$d['expire_date'].""; ?></h6>
+                            <b style="font-size:11px;"><?php echo "created by: ".$d['owner']; ?></b>
                         </a>
                     </div>
                     </a>
@@ -136,10 +134,7 @@ $('#lab_updater').css('display','block');
                 </div>
             </div>
                 
-         <?php 
-         $k--;
-        }
-        ?>
+
       
         <?php
         }
@@ -151,11 +146,6 @@ $('#lab_updater').css('display','block');
            
       <!-- new assignment -->
             <?php require_once("lab_new.php");?>
-        
-            <div id="ass_updater" style="display:none; position:absolute; width:50%; height:fit-content;height:moz-fit-content;height:webkit-fit-content;background-color:white;margin-top:-865px;margin-left:10%;padding-left:8%;border:solid 1px #ccc;border-radius:7px">
-            <div id="closep" style="width:40%;height:8%;margin-left:90%;padding-top:3px"><a href="#" style="width:100%;height:100%;font-size:35px">&times;</a></div>
-            <?php require_once("ass_update.php");?>
-            </div>
             <div id="lab_updater" style="display:none; position:absolute; width:50%; height:fit-content;height:moz-fit-content;height:webkit-fit-content;background-color:white;margin-top:-465px;margin-left:10%;padding-left:8%;border:solid 1px #ccc;border-radius:7px">
             <div id="closel" style="width:40%;height:8%;margin-left:90%;padding-top:3px"><a href="#" style="width:100%;height:100%;font-size:35px">&times;</a></div>
             <?php require_once("lab_update.php");?>

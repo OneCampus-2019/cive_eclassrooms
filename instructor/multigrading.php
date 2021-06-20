@@ -15,14 +15,14 @@ if(hasAuthority('7') || hasAuthority('8')){
 <link rel="stylesheet" type="text/css" href="../assets/css/datatables/css/dataTables.bootstrap.css">
 <script src="../assets/js/fa.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="../assets/css/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="../assets/css/datatables/js/dataTables.bootstrap.min.js"></script>
-        <script src="../assets/css/datatables/js/dataTables.responsive.js"></script>
+
 <link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/datatables/css/jquery.dataTables.css">
    <link rel="stylesheet" type="text/css" href="../assets/css/datatables/css/jquery.dataTables_themeroller.css">
-   <script type="text/javascript" charset="utf8" src="../assets/css/datatables/js/jquery.dataTables.min.js"></script> 
+   <link href="../assets/css/validation.css" rel="stylesheet" />
+  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
    <script>
    $(document).ready(function(){
 
@@ -42,6 +42,8 @@ if(hasAuthority('7') || hasAuthority('8')){
   var colum="";
   var regno="";
    
+  file_id=localStorage.getItem('file_id');
+  record=$('#'+file_id).parent();
   //setting up the last assignment
 
     var last_course=localStorage.getItem('course_code');
@@ -128,15 +130,15 @@ if(hasAuthority('7') || hasAuthority('8')){
    }
 
 //end taking all the questions score
- if(parseFloat($('#marks').val())!=maxima){alert("the total score must be equal to the total of questions scores");}
+ if(parseFloat($('#marks').val())!=maxima){swal("the total score must be equal to the total of questions scores","","info");}
  else{
  var marks="";
  //we call the marking script for the current entry
  if(file_id!=""){ //test again and again
- if($('#marks').val()==""){alert("please enter marks then click enter");}
+ if($('#marks').val()==""){swal("please enter marks then click enter","","info");}
  else{
  var tot_marks=parseFloat($('#tot').val());
- if(parseFloat($('#marks').val())>tot_marks){alert("marks provided exceed the maxima"); $('#marks').val("");}
+ if(parseFloat($('#marks').val())>tot_marks){swal("marks provided exceed the maxima","","info"); $('#marks').val("");}
  else{
  marks=parseFloat($('#marks').val());
  $.get("multigrad_form.php",{ grad:marks, fid:file_id, q_scores:qscores},returnAnswer)
@@ -144,7 +146,7 @@ if(hasAuthority('7') || hasAuthority('8')){
 //done sending the current user, we point to the next one
 .success(function(){
 record.css('backgroundColor',"");
-if($("tr:eq("+rw+")").is($('tr').last())){alert('end of the list');}
+if($("tr:eq("+rw+")").is($('tr').last())){swal("end of the list","","info");}
 else{rw++; crow=$("tr:eq("+rw+")");}
 colum=crow.children('td').eq(2);
 file_id=colum.attr('id');
@@ -205,7 +207,7 @@ function returnAnswer(answer)
 //handling next button;
 $('#next').click(function(){
 crow.css('backgroundColor',"");
-if($("tr:eq("+rw+")").is($('tr').last())){alert('end of the list');}
+if($("tr:eq("+rw+")").is($('tr').last())){swal("end of the list","","info");}
 else{rw++; crow=$("tr:eq("+rw+")");}
 colum=crow.children('td').eq(2);
 file_id=colum.attr('id');
@@ -239,7 +241,7 @@ $('#marks').val("");
 //handling prev 
 $('#prev').click(function(){
 crowpr=$("tr:eq("+rw+")");
-if($("tr:eq("+rw+")").is($('tr:eq(1)'))){alert('no previous record');}
+if($("tr:eq("+rw+")").is($('tr:eq(1)'))){swal("no previous record","","info");}
 else{rw--; crow=$("tr:eq("+rw+")");}
 crowpr.css("background-color","");
 colum=crow.children('td').eq(2);
@@ -344,7 +346,7 @@ $('#marks').val("");
    if(parseFloat($('#marks').val())!=maxima && isNaN(parseFloat($('#marks').val()))==false)
    {
      alert(isNaN(parseFloat($('#marks').val())));
-	   alert("the total score must be equal to the total of questions scores");
+	   swal("the total score must be equal to the total of questions scores","","info");
 	   if(maxima>0){$('#marks').val(maxima);}else{$('#marks').val("");}
    }
     
@@ -521,7 +523,7 @@ form input{
 </style>
 </head>
 <body style="font-family:Verdana;color:#aaaaaa;">
-<div style="background-color:#e5e5e5;padding:1px;text-align:center;">
+<div style="background-color:black;color:white;padding:1px;text-align:center;">
   <div id="asstitle"><b>Marking:</b><?php print " Class: ".Crypt::decrypt($_GET['code'])."==>".Crypt::decrypt($_GET['asstit']);?></div>
   <div id="asshead"><h4></h4></div>
   
@@ -536,7 +538,7 @@ $ass= Crypt::decrypt($_GET['ass']);?>
   <div class="main">
     <iframe src="" style="width:100%; color:#44f; font_size:10%;" height="550" id="fileobj"  type="application/pdf"><p style="margin-top:40%"><b><center>
     <?php if($nr < 1)
-    {print "No any submissions!";
+    {print 'No any submissions!';
  }else{ print "No preview!! download it";}?></center></b></p>
     </iframe>
     <!-- <div id="viewpdf"></div> -->

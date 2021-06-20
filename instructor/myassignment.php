@@ -72,8 +72,8 @@ $("#expire_date").val(expdate);
     }
         else{$code=$_SESSION['code'];}
         $conn = DB::getConnection();
-        $stmt = $conn->prepare("SELECT * FROM `tbl_uploads` WHERE for_course=:for_course AND owner=:owner AND as_in=:as_in ORDER BY id DESC");
-        $stmt->execute([':for_course'=>$code, ':owner'=>$mimi, ':as_in'=>'assignment']);
+        $stmt = $conn->prepare("SELECT * FROM `tbl_uploads` WHERE for_course=:for_course AND as_in=:as_in ORDER BY id DESC");
+        $stmt->execute([':for_course'=>$code, ':as_in'=>'assignment']);
         $assignments = $stmt->fetchAll(PDO::FETCH_OBJ);
         
         //$nr = mysqli_num_rows($qq);
@@ -89,13 +89,15 @@ $("#expire_date").val(expdate);
                         </div>';
         }
         else{
-        $asstit="Assignment".$k;
+            $title="";
+        //$asstit="Assignment".$k;
         foreach ($assignments  as $assignment){
-            $mi =$assignment->owner;
-            $asstit="Assignment ".$k;
+           // $mi =$assignment->owner;
+            $asstit1="Assignment ".$k;
             //$exploded_array = explode('~', $str);
-               if($mimi ==$mi ){
+               //if($mimi ==$mi ){
                 
+                if($assignment->title==null){$title=$asstit1;}else{$title=$assignment->title;}
      ?> 
 
             <!-- to be looped -->
@@ -104,12 +106,12 @@ $("#expire_date").val(expdate);
             <div class="col-xl-3 col-md-4">
                 <div class="card bg-info text-white mb-4" style="height:180px" >
           
-                <a href="stdwork?ass=<?php echo Crypt::encrypt($assignment->file_name);?>&&id=<?php echo Crypt::encrypt($_GET['id']);?>&&asstit=<?php echo $asstit;?>&&code=<?php echo $code;?>" style="text-decoration: none;color:#fff;font-weight: bold;">
+                <a href="stdwork?ass=<?php echo Crypt::encrypt($assignment->file_name);?>&&id=<?php echo Crypt::encrypt($_GET['id']);?>&&asstit=<?php echo $title;?>&&code=<?php echo $code;?>" style="text-decoration: none;color:#fff;font-weight: bold;">
                     <div class="card-body">
-                        <a href="stdwork?ass=<?php echo Crypt::encrypt($assignment->file_name);?>&&id=<?php echo $_GET['id'];?>&&asstit=<?php echo $asstit;?>&&code=<?php echo Crypt::encrypt($code);?>" style="text-decoration: none;color:#fff;font-weight: bold;">
-                            <h6><?php echo "Assignment ".$k;?></h6>
-                            <h6><?php echo $assignment->title; ?></h6>
-                            <?php echo "Deadline: ".$assignment->expire_date.""; ?>
+                        <a href="stdwork?ass=<?php echo Crypt::encrypt($assignment->file_name);?>&&id=<?php echo $_GET['id'];?>&&asstit=<?php echo $title;?>&&code=<?php echo Crypt::encrypt($code);?>" style="text-decoration: none;color:#fff;font-weight: bold;">
+                            <h6><?php echo $title;?></h6>
+                            <h6><?php echo "Deadline: ".$assignment->expire_date.""; ?></h6>
+                            <b style="font-size:11px;"><?php echo "created by: ".$assignment->owner; ?></b>
                         </a>
                     </div>
                     </a>
@@ -121,18 +123,13 @@ $("#expire_date").val(expdate);
                             <i class="fas fa-eye fa-1x" title="View"></i>
                             </a>
                         </h5>
-                        <br><h7><a href="multigrading?assid=<?php echo Crypt::encrypt($assignment->id); ?>&&ass=<?php  echo Crypt::encrypt($assignment->file_name); ?>&&asstit=<?php  echo Crypt::encrypt($asstit); ?>&&code=<?php  echo Crypt::encrypt($_SESSION['code']); ?>&&id=<?php  echo $_GET['id']; ?>" style="color:white"><i class="fas fa-pen fa-2x" title="Mark"></i></h7>
+                        <br><h7><a href="multigrading?assid=<?php echo Crypt::encrypt($assignment->id); ?>&&ass=<?php  echo Crypt::encrypt($assignment->file_name); ?>&&asstit=<?php  echo Crypt::encrypt($title); ?>&&code=<?php  echo Crypt::encrypt($_SESSION['code']); ?>&&id=<?php  echo $_GET['id']; ?>" style="color:white"><i class="fas fa-pen fa-2x" title="Mark"></i></h7>
                         <h5><a href="delf?mif=<?php echo Crypt::encrypt($assignment->id); ?>&kkk=<?php echo $_GET['id']; ?>" class="btn btn-sm btn-danger" style="color:white"><i class="fas fa-trash fa-1x " title="Delete"></i></a></h5>
                     </div>
                 </div>
             </div>
-                
-         <?php 
-         $k--;
-        }
-        ?>
-   
         <?php
+        $k--;
         }
     }
          ?>   

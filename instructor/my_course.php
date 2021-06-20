@@ -89,7 +89,14 @@ $conn = DB::getConnection();
              <?php echo $d['assigned_to']; ?>
          </td> 
         <td>
-        <a href="course_edit?name='' && did=<?php echo Crypt::encrypt($d['id']); ?>" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></a>
+        <?php 
+        $assigned=Crypt::encrypt($d['assigned_to']);
+        $name=Crypt::encrypt($mimi);
+        $id=Crypt::encrypt($d['id']);
+        print '<a href="course_edit?id='.$id.'" class="btn btn-primary btn-sm" title="add partner"><i class="fas fa-user-plus"></i></a>';
+        echo '<a href="course_edit?assigned='.$assigned.'&&name='.$name.'&&did='.$id.'&&action=delete" class="btn btn-primary btn-sm" style="color:red;margin-left:1px" title="drop course"><i class="fa fa-trash"></i></a>';
+       
+        ?>
         </td>
         </tr>
         <?php 

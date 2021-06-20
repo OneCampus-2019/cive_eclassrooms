@@ -182,7 +182,7 @@ $(document).ready(function(){
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; CIVE <?php  echo date('Y'); ?></div>
-                            <div class="text-muted pull-right">Version 1.6.4</div>
+                            <div class="text-muted pull-right">Version 1.6.5</div>
                         </div>
                     </div>
                 </footer>

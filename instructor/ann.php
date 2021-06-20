@@ -11,7 +11,7 @@ use App\DB;
 
         <div class="col-sm-4">
           <div class="card">
-            <div class="card-header">Post Announcement</div>
+            <div class="card-header">Post new Announcement</div>
             <div class="card-body">
               <form action="" method="post">
               <label for="">Title</label>
@@ -34,13 +34,13 @@ use App\DB;
         </div>
 <?php 
 
-  $postedby = $u;
+  $postedby = $n;
   
 ?>
 
         <div class="col-sm-8 overflow-auto" >
           <div class="card">
-            <div class="card-header">Announcement Posted By You</div>
+            <div class="card-header">Announcements</div>
             <div class="card-body" style="width:auto;height:500px; overflow-y: scroll;">
               <table class="table table-striped table-bordered table-hover" id="tbl">
           <thead>
@@ -48,6 +48,7 @@ use App\DB;
                   <th>Sno.</th>
                   <th>title</th>
                   <th>body</th>
+                  <th>Announced by</th>
                   <th>expired date</th>
                   <th>Action</th>
 
@@ -56,8 +57,8 @@ use App\DB;
             </thead>
             <tbody>
             <?php $code=$_SESSION['code']; 
-            $ret=$conn->prepare("SELECT * FROM tbl_posts where postedby = :postedby AND for_course=:for_course AND title<> :title");
-            $ret->execute([':postedby'=>$postedby, ':for_course'=>$code, ':title'=>'quizs']);
+            $ret=$conn->prepare("SELECT * FROM tbl_posts where for_course=:for_course AND title<> :title");
+            $ret->execute([':for_course'=>$code, ':title'=>'quizs']);
             $rows = $ret->fetchAll();
     $cnt=1;
     $j = $_GET['id'];
@@ -69,6 +70,7 @@ use App\DB;
               <td><?php echo $cnt;?></td>
               <td><?php echo $row['title'];?></td>
               <td><?php echo $row['body'];?></td>
+              <td><?php echo $row['postedby'];?></td>
               <td><?php echo $row['exp_date'];?></td>
 
               <td>

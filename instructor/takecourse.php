@@ -1,7 +1,7 @@
 <?php require_once '../includes/header.php'; ?>
 <?php 
 use App\DB;
-if(hasAuthority('7')){
+if(hasAuthority('7') || hasAuthority('8')){
 $conn = DB::getConnection();
     $cc = $conn->prepare("SELECT * FROM `tbl_users` WHERE name=:name ");
     $cc->execute([':name'=>$n]);
@@ -16,7 +16,7 @@ $conn = DB::getConnection();
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-        	<h2 class="mt-4">take Course <i class="pull-right muted" style="font-size: 18px;"><?php echo date("F d, Y h:i:s A"); ?></i></h2>
+        	<h2 class="mt-4">Take A new Course <i class="pull-right muted" style="font-size: 18px;"><?php echo date("F d, Y h:i:s A"); ?></i></h2>
 
             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
     <thead>
@@ -84,13 +84,14 @@ $conn = DB::getConnection();
         <?php 
         $id=Crypt::encrypt($d['id']);
         $name=$_SESSION['name'];
-        if(strpos($d['assigned_to'], $_SESSION['name']) === false){
-        print '<a href="course_edit?name='.$name.' && did='.$id.'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>';
+        if($d['assigned_to']=="" || $d['assigned_to']==null){
+        $take="takecourse";
+       print '<a href="course_edit?name='.$name.'&&did='.$id.'&&action='.$take.'" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>';
       
         }
     else{
         //print '<a href="#"><i class="fas fa-user-check"></i></a>';
-        print '<a href="course_edit?id='.$id.'" class="btn btn-primary btn-sm"><i class="fas fa-user-plus"></i></a>';
+        print '<a href="" class="btn btn-primary btn-sm" title="this course is already taken"><i class="fa fa-ban" style="color:red"></i></a>';
       
     }
         ?>

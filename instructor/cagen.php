@@ -692,8 +692,8 @@ if(isset($_GET['code'])){
   $code=Crypt::decrypt($_GET['code']);}
 else{$code=$_SESSION['code'];}
 
-$q = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course && owner=:owner && as_in=:as_in ORDER BY id DESC");
-$q->execute([':for_course'=>$code, ':owner'=>$mimi, ':as_in'=>'assignment']);
+$q = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course  && as_in=:as_in ORDER BY id DESC");
+$q->execute([':for_course'=>$code,':as_in'=>'assignment']);
 $data = $q->fetchAll(PDO::FETCH_ASSOC);
 $assCount = $q->rowCount();
 ?>
@@ -707,23 +707,15 @@ $assCount = $q->rowCount();
           ASSIGNMENT
           <?php
 foreach ($data as $d){
-            $mi =$d['owner'];
-            
-            //$exploded_array = explode('~', $str);
-               if($mimi ==$mi ){
-
-                $asstit="Assignment ".$d['assno'];
-
                 ?>
 
-<div class="checkbox"><input type="checkbox" id="<?php echo $d['total_marks'];?>" name="<?php echo $asstit;?>" value="<?php echo $d['file_name'];?>"  class="ass-checkbox"><?php echo $asstit;?></div>
+<div class="checkbox"><input type="checkbox" id="<?php echo $d['total_marks'];?>" name="" value="<?php echo $d['file_name'];?>"  class="ass-checkbox"><?php echo $d['title'];?></div>
 
 
 
                 <?php
 
                }
-            }
 ?>
 <?php if($assCount > 0): ?>
 <div id="assin_aggmax">
@@ -737,21 +729,15 @@ foreach ($data as $d){
           LABS
           
 <?php
-$q1 = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course && owner=:owner && as_in=:as_in ORDER BY id DESC");
-$q1->execute([':for_course'=>$code, ':owner'=>$mimi, ':as_in'=>'lab']);
+$q1 = $conn->prepare("SELECT * FROM `tbl_uploads` where for_course=:for_course && as_in=:as_in ORDER BY id DESC");
+$q1->execute([':for_course'=>$code,':as_in'=>'lab']);
 $datas = $q1->fetchAll(PDO::FETCH_ASSOC);
 $labCount = $q1->rowCount();
 foreach ($datas as $d1){
-    $mi =$d1['owner'];
-    
-    //$exploded_array = explode('~', $str);
-       if($mimi ==$mi ){
-
-        $asstit="Lab ".$d1['assno'];
 
         ?>
 
-<div class="checkbox"><input type="checkbox" id="<?php echo $d1['total_marks'];?>" name="<?php echo $asstit;?>" value="<?php echo $d1['file_name'];?>" class="lab-checkbox"><?php echo $asstit;?></div>
+<div class="checkbox"><input type="checkbox" id="<?php echo $d1['total_marks'];?>" name="" value="<?php echo $d1['file_name'];?>" class="lab-checkbox"><?php echo $d1['title'];?></div>
 
 
 
@@ -759,7 +745,6 @@ foreach ($datas as $d1){
         <?php
 
        }
-    }
 ?>
 <?php if($labCount > 0): ?>
 <div id="labs_aggmax">

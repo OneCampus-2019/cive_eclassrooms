@@ -2,7 +2,7 @@
 use App\DB;
 $conn = DB::getConnection(); ?>
 <?php  
-if(hasAuthority('9') || hasAuthority('7')){
+if(hasAuthority('9') || hasAuthority('7') || hasAuthority('8')){
 
     if(isset($_GET['id'])){
         $id = Crypt::decrypt($_GET['id']);

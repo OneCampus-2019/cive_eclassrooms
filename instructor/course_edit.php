@@ -8,7 +8,7 @@ if(hasAuthority('8') || hasAuthority('7') ){
         $res = $conn->prepare("SELECT * FROM `tbl_course` WHERE id=:id ");
         $res->execute([':id'=>$ii]);
         $data = $res->fetch(PDO::FETCH_ASSOC);
-  
+
 ?>
 <style>
         .mul-select{
@@ -19,7 +19,7 @@ if(hasAuthority('8') || hasAuthority('7') ){
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-            <h2 class="mt-4">Edit Course <i class="pull-right muted" style="font-size: 18px;"><?php echo date("F d, Y h:i:s A"); ?></i></h2>
+            <h2 class="mt-4">Add partner <i class="pull-right muted" style="font-size: 18px;"><?php echo date("F d, Y h:i:s A"); ?></i></h2>
             <hr>
     <form action="" method="POST">
             <div class="form-row">
@@ -52,7 +52,7 @@ if(hasAuthority('8') || hasAuthority('7') ){
             <div class="form-row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="small mb-1" >Assign Instructor</label>
+                        <label class="small mb-1" >Choose an Instructor to Add</label>
                         <select multiple="true" class="mul-select" id="members-select" name="j[]" data-placeholder="Select one or more course. Type to search.">
                 <?php
                 define("TABLE_USERS", 'tbl_users');
@@ -63,10 +63,10 @@ if(hasAuthority('8') || hasAuthority('7') ){
                 
                 $stmt = $conn->prepare("SELECT * FROM " . TABLE_COURSE . " WHERE id = :id");
                 $stmt->execute([':id'=>$ii]);
-                
                 if ( $stmt->rowCount() > 0) {                    
                         $member_data = $stmt->fetch(PDO::FETCH_ASSOC);
                         $current_members[] = $member_data['assigned_to'];
+                        
                 }
 
                 // end of testing
@@ -78,6 +78,7 @@ if(hasAuthority('8') || hasAuthority('7') ){
                     foreach ($yy as $k) {
                         $xx[] = $k;
                     }
+                    
                     while ( $row = $sql->fetch(PDO::FETCH_ASSOC)) {
                 ?>
                         <option value="<?php echo $row["name"]; ?>"
@@ -136,23 +137,71 @@ if(hasAuthority('8') || hasAuthority('7') ){
             <?php
             //header('location: config_prog.php');
             //echo "zimeenda";
-        }else { 
-            
         }
-
-        if(isset($_GET['name']))
+   
+        if(isset($_GET['action']))
         {
-            $name=$_GET['name'];
+            
+        if($_GET['action']=="delete")
+        {
+            
+        if(isset($_GET['name']) && isset($_GET['assigned']))
+        {
+          $name=strval(Crypt::Decrypt($_GET['name']));
+          $assigned=Crypt::Decrypt($_GET['assigned']);
           $idme=Crypt::Decrypt($_GET['did']);
 
+         
+          //checking if it is only this user having the course
+          if($name==$assigned)
+          {
           $q = $conn->prepare("UPDATE `tbl_course` SET assigned_to=:assigned_to WHERE id=:id ");
-            $q->execute([':assigned_to'=>$name, ':id'=>$idme]);
+            $q->execute([':assigned_to'=>"", ':id'=>$idme]);
 
-            print '<script>window.location.href="takecourse.php";</script>';
+            print '<script>window.location.href="my_course.php";</script>';
 
 
+          }
+          else
+          {
+            $all = explode(",",$assigned);
 
+            $myelem=array();
+
+            for($a=0;$a<count($all);$a++)
+            {
+              $newname=trim(strval($name));
+              if(trim(strval($all[$a]))==$newname){
+
+                unset($all[$a]);
+                //print '<script>alert("'.$all[$a].'");</script>';
+              }
+            }
+
+                $newassign=trim(strval(implode(",",$all)));
+                //print '<script>alert("'.$newassign.'");</script>';
+               $q = $conn->prepare("UPDATE `tbl_course` SET assigned_to=:assigned_to WHERE id=:id ");
+               $q->execute([':assigned_to'=>$newassign, ':id'=>$idme]);
+    
+               print '<script>window.location.href="my_course.php";</script>';
+            
+          }
         }
+    }
+    else if($_GET['action']=="takecourse")
+    {
+        $idme=Crypt::Decrypt($_GET['did']);
+        $thename=$_GET['name'];
+        $f= $conn->prepare("UPDATE `tbl_course` SET assigned_to=:assigned_to WHERE id=:id ");
+        $f->execute([':assigned_to'=>$thename, ':id'=>$idme]);
+
+       print '<script>window.location.href="takecourse.php";</script>';
+       //print $thename;
+
+
+    }
+}
+  
 
       ?>
 <script>

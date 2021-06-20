@@ -55,7 +55,7 @@ $conn = DB::getConnection();
 				</th>
 
 				<th>
-					Registration no
+					Reg no
 				</th>
 
 				<!-- <th>
@@ -120,7 +120,7 @@ $conn = DB::getConnection();
 		</table>
 		<script>
     $(document).ready(function() {
-    $('#dataTables-ex2').DataTable();
+    //$('#dataTables-ex2').DataTable();
 } );
     </script>
 

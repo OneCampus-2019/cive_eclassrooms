@@ -42,8 +42,8 @@ $cod = NULL;
      	$cod=$_SESSION['codex'];
      }
 	
-	$sel = $conn->prepare("SELECT * FROM `tbl_uploads` WHERE owner=:owner && for_course=:for_course && as_in=:as_in ORDER BY id DESC");
-	$sel->execute([':owner'=>$n, ':for_course'=>$cod, ':as_in'=>'material']);
+	$sel = $conn->prepare("SELECT * FROM `tbl_uploads` WHERE  for_course=:for_course && as_in=:as_in ORDER BY id DESC");
+	$sel->execute([':for_course'=>$cod, ':as_in'=>'material']);
 	$datas = $sel->fetchAll();
 	if($sel->rowCount()<=0){print("<div class='alert alert-info alert-dismissible col-md-12'><h4 align='center'>No material found</h4><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong></strong></div>");}
 	else{
@@ -61,7 +61,7 @@ $cod = NULL;
 					
 				</th>
 				<th>
-					<?php echo "File name" ?>
+					<?php echo "File details"; ?>
 				</th>
 				<!-- <th>
 					number of download
@@ -86,7 +86,7 @@ $cod = NULL;
 			<?php } ?>
 			</td>
 			<td style="overflow-wrap: break-word">
-			<a href="#"><div id="filename" style="width:250px;height:200px;overflow-wrap: break-word"><?php echo $m['file_name']; ?></div></a>
+			<b>file: </b><a href="#"><div id="filename" style="width:250px;height:200px;overflow-wrap: break-word"><?php echo $m['file_name']."<br><br><br><b style='color:black'>uploaded by: ".$m['owner']."</b>"; ?></div></a>
 			</td>
 			<!-- <td>
 				<?php //echo $m['no_downloads']; ?>

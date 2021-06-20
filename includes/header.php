@@ -20,13 +20,14 @@
          <link href="../assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" /> 
          <link href="../assets/css/styles.css" rel="stylesheet" />
         <link href="../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" /> 
+        
 	<!--Select2 -->
 	 <link href="../assets/select2/css/select2.min.css" rel="stylesheet" />
            <link href="../assets/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
        
       <!--  <link href="../assets/css/noti.css" rel="stylesheet" />  -->
-        <link href="../assets/css/validation.css" rel="stylesheet" />
-        <link href="../assets/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+   
+        <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
         <link href="../assets/css/elements.css" rel="stylesheet" />
          <script src="../assets/js/jquery.min.js" crossorigin="anonymous"></script>
           <script src="../assets/font-awesome/css/all.min.js" crossorigin="anonymous"></script> 
@@ -250,7 +251,7 @@
                             </a>
                             <a class="nav-link" href="takecourse">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                                Take a Course
+                                Take a new Course
                             </a>
                             <a class="nav-link collapsed" href="prog_config">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
@@ -294,9 +295,13 @@
                             <!-- my course -->
                             <a class="nav-link collapsed" href="my_course">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                My Course
+                                My Courses
                                 <div class="sb-sidenav-collapse-arrow"></div
-                            ></a>                    
+                            ></a>
+                            <a class="nav-link" href="takecourse">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                                Take a new Course
+                            </a>
                             <a class="nav-link collapsed" href="studentList">
                                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                     List Of Students
