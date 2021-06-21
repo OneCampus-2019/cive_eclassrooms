@@ -4,7 +4,6 @@ $conn = DB::getConnection();
 if (isset($_POST['ass_update'])) { // if save button on the form is clicked
     $expr = $_POST['expire_date'];
     $assid=Crypt::decrypt($_POST['assid']);
-    echo "<script>alert('".$assid."')</script>";
     if (!isset($expr) || empty($expr)) {
         echo "<script>alert('Please Set The Expire Date.')</script>";
     }else{
