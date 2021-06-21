@@ -52,6 +52,15 @@ $("#lab_updater").animate({left: '250px'});
 $('#lab_updater').css('display','block');
 
 });
+$('.update').click(function(){
+
+var assid1=$(this).attr('labid');
+var expdate=$(this).attr('expdate');
+$('#labidd').val(assid1);
+//$("#expire_date").val(expdate);
+
+
+});
 
 
 
@@ -122,13 +131,13 @@ $('#lab_updater').css('display','block');
                     </div>
                     </a>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <h7 id="<?php echo $d['id']; ?>" class="upd"><i class="fa fa-edit fa-2x" title="Edit"></i></h7>
+                         <h7 class="update" labid="<?php echo Crypt::encrypt($d['id']); ?>" expdate="<?php echo $d['expire_date']; ?>"><i class="fa fa-edit fa-2x" data-target="#EditLabModal" data-toggle="modal"></i></h7>
                         <h5>
                             <a href="../upload/data/<?php  echo $d['file_name']; ?>" target="_blank" style="color:white">
                             <i class="fas fa-eye fa-1x" title="View"></i>
                             </a>
                         </h5>
-                        <br><h7><a href="multigrading.php?assid=<?php echo $d['id']; ?>&&ass=<?php  echo $d['file_name']; ?>&&asstit=<?php  echo $asstit; ?>&&code=<?php  echo $_SESSION['code']; ?>&&id=<?php  echo $_GET['id']; ?>" style="color:white"><i class="fas fa-pen fa-2x" title="Mark"></i></h7>
+                        <br><h7><a href="multigrading.php?assid=<?php echo $d['id']; ?>&&ass=<?php  echo $d['file_name']; ?>&&asstit=<?php  echo Crypt::encrypt($asstit); ?>&&code=<?php  echo $_SESSION['code']; ?>&&id=<?php  echo $_GET['id']; ?>" style="color:white"><i class="fas fa-pen fa-2x" title="Mark"></i></h7>
                         <h5><a href="delf.php?mif=<?php echo Crypt::encrypt($d['id']); ?>&kkk=<?php echo $_GET['id']; ?>" class="btn btn-sm btn-danger" style="color:white"><i class="fas fa-trash fa-1x " title="Delete" onclick="confirm('Delete this Lab?');"></i></a></h5>
                     </div>
                 </div>
@@ -146,9 +155,10 @@ $('#lab_updater').css('display','block');
            
       <!-- new assignment -->
             <?php require_once("lab_new.php");?>
+            <?php require_once("lab_update.php");?>
             <div id="lab_updater" style="display:none; position:absolute; width:50%; height:fit-content;height:moz-fit-content;height:webkit-fit-content;background-color:white;margin-top:-465px;margin-left:10%;padding-left:8%;border:solid 1px #ccc;border-radius:7px">
             <div id="closel" style="width:40%;height:8%;margin-left:90%;padding-top:3px"><a href="#" style="width:100%;height:100%;font-size:35px">&times;</a></div>
-            <?php require_once("lab_update.php");?>
+            
             </div>
            
                             

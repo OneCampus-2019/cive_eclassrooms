@@ -144,7 +144,6 @@ $("#expire_date").val(expdate);
            
             <div id="lab_updater" style="display:none; position:absolute; width:50%; height:fit-content;height:moz-fit-content;height:webkit-fit-content;background-color:white;margin-top:-465px;margin-left:10%;padding-left:8%;border:solid 1px #ccc;border-radius:7px">
             <div id="closel" style="width:40%;height:8%;margin-left:90%;padding-top:3px"><a href="#" style="width:100%;height:100%;font-size:35px">&times;</a></div>
-            <?php require_once("lab_update.php");?>
             </div>
           
             <?php }else { logOut(); } ?>          

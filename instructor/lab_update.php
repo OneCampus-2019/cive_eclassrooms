@@ -6,7 +6,7 @@
         display: block;
       }
   </style>
-  <div class="modal fade" role="dialog" id="EditAssignemtnModal">
+  <div class="modal fade" role="dialog" id="EditLabModal">
   	<div class="modal-dialog" role="document">
   		<div class="modal-content">
   			<div class="modal-header">
@@ -20,7 +20,7 @@
 			    <label class="col-sm-2 col-form-label">Deadline</label>
 			    <div class="col-sm-10">
 			      <input type="date" name="expire_date" class="form-control required" id="expire_date" />
-			      <input type="hidden" name="assid" class="form-control required" id="assid" />
+			      <input type="hidden" name="assid" class="form-control required" id="labidd" />
 			    </div>
 			</div>
 			</div>	
